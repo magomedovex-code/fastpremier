@@ -8,6 +8,7 @@ A fast, searchable reference of every default Adobe Premiere (Pro) keyboard shor
 - Instant, typo-tolerant search across names, menu paths, descriptions and key combos (`ctrl k`, `cmd-k` and `⌘K` all work)
 - **Press to find:** press a key combination to see which Premiere command uses it
 - Windows / macOS toggle, tier, category and panel filters, shareable URLs, starred favorites, and a random hidden gem
+- 7 languages: English, Русский, Deutsch, Español, Français, Türkçe and العربية (right-to-left). Russian, German, Spanish and French use Adobe's official translated command names; Adobe's Turkish and Arabic pages keep English command names, so those do too
 
 ## Use it offline
 
@@ -24,7 +25,7 @@ python scripts/build_shortcuts.py   # download pages, parse, write data/shortcut
 python scripts/validate.py          # sanity checks + counts per tier and category
 ```
 
-Tiers, descriptions and search aliases live in `scripts/curation.py`. To merge your own list, paste the output of Premiere's Keyboard Shortcuts › Copy To Clipboard into `premiere-shortcuts.txt` in the repo root before building.
+Tiers, descriptions and search aliases live in `scripts/curation.py`; translations live in `scripts/i18n/<lang>.json`. To merge your own list, paste the output of Premiere's Keyboard Shortcuts › Copy To Clipboard into `premiere-shortcuts.txt` in the repo root before building.
 
 ## Disclaimer
 
