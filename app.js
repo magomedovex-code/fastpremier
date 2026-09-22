@@ -379,7 +379,9 @@
       sum += lvl;
     }
     const inOrder = qw.length > 1 && entry._names.some((n) => n.includes(qw.join(' '))) ? 15 : 0;
-    return { score: minL * 100 + Math.round((20 * sum) / qw.length) + inOrder, terms };
+    // Small tie-breaker: a category/alias hit that the description also mentions is the likelier match.
+    const corroborated = minL < 5 && qw.every((w) => entry._descW.some((x) => x.startsWith(w))) ? 10 : 0;
+    return { score: minL * 100 + Math.round((20 * sum) / qw.length) + inOrder + corroborated, terms };
   }
 
   /* ------------------------------------------------------------ filtering + ranking */
@@ -475,7 +477,7 @@
     ']': [']', 'key.rbracket'], '=': ['=', 'key.equals'], '-': ['-', 'key.minus'],
   };
   const PTR_KEY = { Click: 'click', 'Double-click': 'dblclick', Drag: 'drag', Scroll: 'scroll' };
-  const MOUSE_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="1.5" width="9" height="13" rx="4.5"/><path d="M8 1.5v4.5M3.5 6h9"/></svg>';
+  const MOUSE_ICON = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3.5" y="1.5" width="9" height="13" rx="4.5"/><path d="M8 1.5v4.5M3.5 6h9"/></svg>';
 
   // Printed label for a key in the current language (German keyboards say "Strg", French "Maj", …).
   function keyText(k, os) {
@@ -568,9 +570,9 @@
     Workspace: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M10 4v16M10 11.5h11"/>',
     Startup: '<path d="M12 3.5v8"/><path d="M6.3 7.3a8 8 0 1 0 11.4 0"/>',
   };
-  const iconSVG = (cat) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[cat] || '<circle cx="12" cy="12" r="8"/>'}</svg>`;
+  const iconSVG = (cat) => `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">${ICONS[cat] || '<circle cx="12" cy="12" r="8"/>'}</svg>`;
 
-  const STAR_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>';
+  const STAR_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>';
 
   function rowHTML(e, i, match) {
     const terms = match ? match.terms : null;
@@ -786,7 +788,8 @@
       const packs = window.PREMIERE_I18N || {};
       if (packs[code]) { resolve(packs[code]); return; }
       const s = document.createElement('script');
-      s.src = `data/i18n/${code}.js`;
+      const v = (document.querySelector('meta[name="data-version"]') || {}).content || '';
+      s.src = `data/i18n/${code}.js${v ? `?v=${v}` : ''}`;
       s.onload = () => resolve((window.PREMIERE_I18N || {})[code] || null);
       s.onerror = () => resolve(null);
       document.head.appendChild(s);
@@ -804,6 +807,7 @@
     els.lang.value = code;
     if (!opts.initial) store.set('psc-lang', code);
     applyStatic();
+    renderLangList();
     buildIndex();
     renderFilters();
     render();
@@ -1087,6 +1091,16 @@
   });
   els.clear.addEventListener('click', clearFilters);
   els.lang.addEventListener('change', () => setLang(els.lang.value));
+  $('#lang-list').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-lang]');
+    if (!b) return;
+    setLang(b.dataset.lang);
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
+  // Keep the short/long placeholder in step with the viewport.
+  matchMedia('(max-width: 420px)').addEventListener('change', () => {
+    if (!state.listening) els.q.placeholder = defaultPlaceholder();
+  });
 
   els.results.addEventListener('click', (ev) => {
     const star = ev.target.closest('[data-star]');
@@ -1135,6 +1149,11 @@
     const nn = $('#names-note');
     nn.innerHTML = t('namesNote', { url: esc(L.officialSource || '') });
     nn.hidden = !nn.textContent.trim();
+  }
+
+  function renderLangList() {
+    $('#lang-list').innerHTML = Object.entries(LANGS).map(([code, v]) =>
+      `<button type="button" class="lang-link" data-lang="${code}" lang="${code}" aria-pressed="${code === state.lang}">${esc(v.name)}</button>`).join('');
   }
 
   async function init() {

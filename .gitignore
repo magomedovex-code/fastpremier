@@ -3,3 +3,4 @@ scripts/raw/
 __pycache__/
 *.pyc
 *.tmp
+.claude/

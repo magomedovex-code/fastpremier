@@ -607,3 +607,20 @@ kbd, .key {
   *, *::before, *::after { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 [dir="rtl"] .cat-group { background: linear-gradient(270deg, rgba(var(--hue), 0.1), rgba(var(--hue), 0.02)); }
+
+/* footer language switcher */
+.lang-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.lang-link {
+  height: 32px; padding: 0 12px; border-radius: 999px; cursor: pointer; font-size: 0.85rem;
+  color: var(--text-2); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.lang-link:hover { color: var(--text); background: rgba(255, 255, 255, 0.1); }
+.lang-link[aria-pressed="true"] { color: #fff; background: var(--accent-soft); border-color: rgba(196, 181, 253, 0.65); }
+
+/* Grid items default to min-width:auto, which lets a no-wrap tile row stretch the whole
+   filter panel on phones. Pin every track to the container instead. */
+.filters, .cat-block, .cat-groups { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.filters > *, .cat-block > *, .cat-groups > *, .cat-group > * { min-width: 0; }
+@media (min-width: 761px) {
+  .cat-group { grid-template-columns: 116px minmax(0, 1fr); }
+}

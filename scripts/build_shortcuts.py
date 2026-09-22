@@ -606,6 +606,10 @@ def build(offline):
     log("6. Translations")
     build_i18n(output, table_rows, warnings)
 
+    import stamp_versions
+    stamp_versions.stamp()
+    log("  stamped asset versions into index.html")
+
     log("")
     log("7. Result")
     log(f"  wrote {OUT.relative_to(ROOT)} with {len(output)} entries")

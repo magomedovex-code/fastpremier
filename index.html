@@ -7,8 +7,9 @@
   <meta name="description" content="A searchable reference of every default Adobe Premiere (Pro) keyboard shortcut, from the everyday essentials to the hidden gems, sourced from Adobe's official help pages. Available in English, Русский, العربية, Türkçe, Español, Français and Deutsch.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#070a1c">
+  <meta name="data-version" content="e1f65f62c4">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a78bfa'/%3E%3Cstop offset='1' stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='6' y='8' width='52' height='46' rx='12' fill='url(%23g)'/%3E%3Crect x='6' y='8' width='52' height='40' rx='12' fill='%231e1b4b'/%3E%3Cpath d='M22 38V20h9a6 6 0 0 1 0 12h-9' fill='none' stroke='%23e9d5ff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=42bd426bdf">
 </head>
 <body>
   <div class="bg" aria-hidden="true">
@@ -23,11 +24,11 @@
 
   <div class="topbar wrap">
     <span class="brand">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="23" rx="6" class="bm-edge"/><rect x="3" y="4" width="26" height="20" rx="6" class="bm-top"/><path d="M11.5 19V9.5H16a3.2 3.2 0 0 1 0 6.4h-4.5" class="bm-p"/></svg>
+      <svg class="brand-mark" width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="23" rx="6" class="bm-edge"/><rect x="3" y="4" width="26" height="20" rx="6" class="bm-top"/><path d="M11.5 19V9.5H16a3.2 3.2 0 0 1 0 6.4h-4.5" class="bm-p"/></svg>
       fastpremier
     </span>
     <label class="lang-picker glass">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
       <span class="vh" data-i18n="language">Language</span>
       <select id="lang"></select>
     </label>
@@ -43,14 +44,14 @@
     <div class="wrap">
       <div class="search glass" id="search-box">
         <div class="search-field">
-          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+          <svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
           <label class="vh" for="q" data-i18n="searchLabel">Search shortcuts</label>
           <input id="q" type="search" dir="auto" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="search-help">
           <kbd class="slash-hint" aria-hidden="true">/</kbd>
         </div>
         <div class="search-controls">
           <button type="button" class="press-btn" id="press-btn" aria-pressed="false" data-i18n-attr="title:pressTitle">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7.5 14h9"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7.5 14h9"/></svg>
             <span class="press-label" data-i18n="pressBtn">Press to find</span>
           </button>
           <div class="seg os-toggle" role="group" data-i18n-attr="aria-label:platform">
@@ -77,7 +78,7 @@
             <button type="button" data-group="category" aria-pressed="false" data-i18n="byCategory">By category</button>
           </div>
           <button type="button" class="gem-btn" id="gem-btn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6z"/></svg>
             <span data-i18n="gem">Random hidden gem</span>
           </button>
         </div>
@@ -117,6 +118,7 @@
         <ul id="sources-list"></ul>
       </details>
       <p class="fine" id="build-info"></p>
+      <nav class="lang-list" id="lang-list" data-i18n-attr="aria-label:language"></nav>
     </div>
   </footer>
 
@@ -133,7 +135,7 @@
 
   <noscript><p class="wrap noscript">This reference needs JavaScript to search and display the shortcuts.</p></noscript>
 
-  <script src="data/shortcuts.js"></script>
-  <script src="app.js"></script>
+  <script src="data/shortcuts.js?v=a49c9c42c3"></script>
+  <script src="app.js?v=62a6d95a01"></script>
 </body>
 </html>

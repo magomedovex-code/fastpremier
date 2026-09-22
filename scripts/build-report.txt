@@ -103,6 +103,7 @@ Premiere shortcut build — 2026-09-22
   fr: 175 official Adobe command names, 252/252 descriptions
   tr: command names kept in English (Adobe's page for this language is not translated), 252/252 descriptions
   ar: command names kept in English (Adobe's page for this language is not translated), 252/252 descriptions
+  stamped asset versions into index.html
 
 7. Result
   wrote data\shortcuts.js with 252 entries
