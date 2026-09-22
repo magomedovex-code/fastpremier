@@ -1,0 +1,5 @@
+# Cached copies of Adobe's help pages (re-downloaded by scripts/build_shortcuts.py)
+scripts/raw/
+__pycache__/
+*.pyc
+*.tmp

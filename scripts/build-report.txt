@@ -1,0 +1,93 @@
+Premiere shortcut build — 2026-09-22
+
+1. Pages (offline: cached copies)
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/keyboard-shortcuts/default-keyboard-shortcuts.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/tour-the-workspace/tools-panel-and-options-panel.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/intro-to-editing/edit-video-in-premiere.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/navigate-sequences-in-the-timeline.html
+  cached       https://helpx.adobe.com/premiere/desktop/render-and-export/render-sequences-for-playback/play-clips-in-source-monitor.html
+  cached       https://helpx.adobe.com/premiere/desktop/render-and-export/render-sequences-for-playback/play-active-sequence-in-program-monitor.html
+  cached       https://helpx.adobe.com/premiere/desktop/render-and-export/render-sequences-for-playback/play-clips-with-preroll-and-postroll.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/perform-ripple-edits.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/perform-rolling-edits.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/perform-slip-edits.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/perform-slide-edits.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-speed/change-clip-speed-and-duration-using-the-rate-stretch-tool.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-text-images/draw-objects/create-free-form-shapes-for-masking.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/keyboard-shortcuts/assign-multiple-keyboard-shortcuts-to-a-command.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/set-up-multi-camera-sequences-for-editing/create-and-edit-a-multi-camera-target-sequence.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/tour-the-workspace/navigate-the-panels.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/tour-the-workspace/display-any-panel-full-screen.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/keyboard-shortcuts/print-keyboard-shortcuts.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/tour-the-workspace/dock-group-undock-panels.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/set-up-accessibility-features/navigate-premiere-using-the-keyboard.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/preferences-and-settings/preferences-overview.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/preferences-and-settings/timeline-preferences.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/customize-the-project-panel/customize-icon-view-in-project-panel.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/customize-the-project-panel/customize-freeform-view-in-project-panel.html
+  cached       https://helpx.adobe.com/premiere/desktop/organize-media/file-organization/change-bin-behaviors.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/sequence-presets-and-settings.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/select-clips.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/rearrange-clips-on-the-timeline.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/intro-to-editing/add-media-to-the-timeline-using-source-patching.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/cut-clips.html
+  cached       https://helpx.adobe.com/premiere/desktop/whats-new/release-notes.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/edit-nested-sequences/reveal-a-clip-in-a-nested-source-sequence.html
+  cached       https://helpx.adobe.com/premiere/desktop/render-and-export/render-sequences-for-playback/match-a-frame-with-its-source.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/intro-to-editing/create-a-subclip-from-the-timeline.html
+  cached       https://helpx.adobe.com/premiere/desktop/organize-media/apply-labeling/change-timecode-display-format.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-video-effects/control-effects-and-transitions-using-keyframes/control-effect-changes-using-bezier-keyframe-interpolation.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-video-effects/control-effects-and-transitions-using-keyframes/copy-and-paste-keyframes.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-video-effects/apply-video-transitions/apply-single-sided-transitions.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-video-effects/apply-video-effects/adjust-controls-in-the-effect-controls-panel.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-speed/change-clip-speed-and-duration-using-time-remapping.html
+  cached       https://helpx.adobe.com/premiere/desktop/organize-media/file-organization/freeze-a-frame-for-a-portion-of-a-clip-using-time-remapping.html
+  cached       https://helpx.adobe.com/premiere/desktop/correct-color/add-color-effects/correct-color-using-hue-and-saturation-curves.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-video-effects/work-with-masks/modifiers-and-conditions-for-masking.html
+  cached       https://helpx.adobe.com/premiere/desktop/add-text-images/insert-captions/translate-captions.html
+  cached       https://helpx.adobe.com/premiere/desktop/correct-color/color-mode-fundamentals/about-the-clip-grid.html
+  cached       https://helpx.adobe.com/premiere/desktop/correct-color/color-mode-fundamentals/understanding-heads-up-displays.html
+  cached       https://helpx.adobe.com/premiere/desktop/correct-color/color-mode-fundamentals/color-mode-workflow.html
+  cached       https://helpx.adobe.com/premiere/desktop/correct-color/color-mode-fundamentals/color-tools-panel-overview.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/about-trim-mode.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/trim-clips/perform-j-k-l-dynamic-trimming-in-trim-mode.html
+  cached       https://helpx.adobe.com/premiere/desktop/get-started/tour-the-workspace/customize-panels.html
+  cached       https://helpx.adobe.com/premiere/desktop/organize-media/apply-labeling/add-a-marker-to-a-clip.html
+  cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/snap-clips.html
+
+2. Headings and rows on the default-shortcuts page
+  File menu                     14 rows
+  Edit menu                     14 rows
+  Clip menu                     10 rows
+  Sequence menu                 22 rows
+  Markers menu                  14 rows
+  Graphics and Titles menu       9 rows
+  Window menu                   20 rows
+  Audio Track Mixer panel        3 rows
+  Effect Controls panel          2 rows
+  Effects panel                  2 rows
+  History panel                  3 rows
+  Media Browser panel            3 rows
+  Metadata panel                 2 rows
+  Program Monitor panel         12 rows
+  Project panel                 28 rows
+  Timeline panel                22 rows
+  16 shortcut tables, 180 rows
+
+3. Merging duplicates
+  merged 'Loop' from Metadata panel into Audio Track Mixer panel
+  merged 'Delete' from Project panel into History panel
+  merged 'Open in Source Monitor' from Project panel into Media Browser panel
+  merged 'Zoom In' from Project panel into Sequence menu
+  merged 'Zoom Out' from Project panel into Sequence menu
+
+4. Supplementary entries from other official pages
+  77 of 77 verified and added
+
+5. premiere-shortcuts.txt
+  not present — skipped
+
+6. Result
+  wrote data\shortcuts.js with 252 entries
+
+Warnings (0)
