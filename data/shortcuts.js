@@ -126,6 +126,96 @@ window.PREMIERE_SHORTCUTS_META = {
     "Workspace": "Panel focus, floating windows, dialogs and shortcut export.",
     "Startup": "Keys held while Premiere launches."
   },
+  "categoryShort": {
+    "File menu": "File",
+    "Edit menu": "Edit",
+    "Clip menu": "Clip",
+    "Sequence menu": "Sequence",
+    "Markers menu": "Markers",
+    "Graphics and Titles menu": "Graphics & Titles",
+    "Window menu": "Window",
+    "Timeline panel": "Timeline",
+    "Project panel": "Project",
+    "Program Monitor panel": "Program Monitor",
+    "Effect Controls panel": "Effect Controls",
+    "Effects panel": "Effects",
+    "Audio Track Mixer panel": "Audio Track Mixer",
+    "History panel": "History",
+    "Media Browser panel": "Media Browser",
+    "Metadata panel": "Metadata",
+    "Playback": "Playback",
+    "Tools panel": "Tools",
+    "Multi-Camera": "Multi-Camera",
+    "Keyframes & effects": "Keyframes & effects",
+    "Masks": "Masks",
+    "Color mode": "Color mode",
+    "Captions": "Captions",
+    "Workspace": "Workspace",
+    "Startup": "Startup"
+  },
+  "categoryGroups": {
+    "menus": [
+      "File menu",
+      "Edit menu",
+      "Clip menu",
+      "Sequence menu",
+      "Markers menu",
+      "Graphics and Titles menu",
+      "Window menu"
+    ],
+    "panels": [
+      "Timeline panel",
+      "Project panel",
+      "Program Monitor panel",
+      "Effect Controls panel",
+      "Effects panel",
+      "Audio Track Mixer panel",
+      "History panel",
+      "Media Browser panel",
+      "Metadata panel"
+    ],
+    "techniques": [
+      "Playback",
+      "Tools panel",
+      "Multi-Camera",
+      "Keyframes & effects",
+      "Masks",
+      "Color mode",
+      "Captions",
+      "Workspace",
+      "Startup"
+    ]
+  },
+  "languages": {
+    "en": {
+      "name": "English",
+      "dir": "ltr"
+    },
+    "ru": {
+      "name": "Русский",
+      "dir": "ltr"
+    },
+    "de": {
+      "name": "Deutsch",
+      "dir": "ltr"
+    },
+    "es": {
+      "name": "Español",
+      "dir": "ltr"
+    },
+    "fr": {
+      "name": "Français",
+      "dir": "ltr"
+    },
+    "tr": {
+      "name": "Türkçe",
+      "dir": "ltr"
+    },
+    "ar": {
+      "name": "العربية",
+      "dir": "rtl"
+    }
+  },
   "headingsParsed": [
     "File menu",
     "Edit menu",

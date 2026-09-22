@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Premiere Pro Shortcuts</title>
-  <meta name="description" content="A searchable reference of every default Adobe Premiere (Pro) keyboard shortcut, from the everyday essentials to the hidden gems, sourced from Adobe's official help pages.">
+  <meta name="description" content="A searchable reference of every default Adobe Premiere (Pro) keyboard shortcut, from the everyday essentials to the hidden gems, sourced from Adobe's official help pages. Available in English, Русский, العربية, Türkçe, Español, Français and Deutsch.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#070a1c">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a78bfa'/%3E%3Cstop offset='1' stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='6' y='8' width='52' height='46' rx='12' fill='url(%23g)'/%3E%3Crect x='6' y='8' width='52' height='40' rx='12' fill='%231e1b4b'/%3E%3Cpath d='M22 38V20h9a6 6 0 0 1 0 12h-9' fill='none' stroke='%23e9d5ff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -19,12 +19,24 @@
     <span class="noise"></span>
   </div>
 
-  <a class="skip-link" href="#results">Skip to results</a>
+  <a class="skip-link" href="#results" data-i18n="skip">Skip to results</a>
+
+  <div class="topbar wrap">
+    <span class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="23" rx="6" class="bm-edge"/><rect x="3" y="4" width="26" height="20" rx="6" class="bm-top"/><path d="M11.5 19V9.5H16a3.2 3.2 0 0 1 0 6.4h-4.5" class="bm-p"/></svg>
+      fastpremier
+    </span>
+    <label class="lang-picker glass">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+      <span class="vh" data-i18n="language">Language</span>
+      <select id="lang"></select>
+    </label>
+  </div>
 
   <header class="hero wrap">
-    <p class="eyebrow">Adobe Premiere (Pro) · default keyboard shortcuts</p>
-    <h1>Every Premiere shortcut,<br>from <span class="grad">essential</span> to <span class="grad grad-2">obscure</span>.</h1>
-    <p class="lede" id="lede">Sourced line by line from Adobe's official help pages. Search by name, by what it does, or just press the keys.</p>
+    <p class="eyebrow" data-i18n="eyebrow">Adobe Premiere (Pro) · default keyboard shortcuts</p>
+    <h1 data-i18n-html="heroHtml">Every Premiere shortcut,<br>from <span class="grad">essential</span> to <span class="grad grad-2">obscure</span>.</h1>
+    <p class="lede" id="lede"></p>
   </header>
 
   <div class="search-dock" id="search-dock">
@@ -32,17 +44,16 @@
       <div class="search glass" id="search-box">
         <div class="search-field">
           <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
-          <label class="vh" for="q">Search shortcuts</label>
-          <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
-                 placeholder="Try “ripple delete”, “ctrl k” or “⌘K”" aria-describedby="search-help">
-          <kbd class="slash-hint" title="Press / to focus search" aria-hidden="true">/</kbd>
+          <label class="vh" for="q" data-i18n="searchLabel">Search shortcuts</label>
+          <input id="q" type="search" dir="auto" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="search-help">
+          <kbd class="slash-hint" aria-hidden="true">/</kbd>
         </div>
         <div class="search-controls">
-          <button type="button" class="press-btn" id="press-btn" aria-pressed="false" title="Press a key combination to see which Premiere commands use it">
+          <button type="button" class="press-btn" id="press-btn" aria-pressed="false" data-i18n-attr="title:pressTitle">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7.5 14h9"/></svg>
-            <span class="press-label">Press to find</span>
+            <span class="press-label" data-i18n="pressBtn">Press to find</span>
           </button>
-          <div class="seg os-toggle" role="group" aria-label="Keyboard platform">
+          <div class="seg os-toggle" role="group" data-i18n-attr="aria-label:platform">
             <button type="button" data-os="win" aria-pressed="false">Windows</button>
             <button type="button" data-os="mac" aria-pressed="false">macOS</button>
           </div>
@@ -50,42 +61,47 @@
       </div>
       <p class="press-note" id="press-note" hidden>
         <span class="pulse" aria-hidden="true"></span>
-        Listening — press a shortcut (Esc to stop). Browser-reserved combos such as Ctrl/Cmd + W, T or N can't be captured.
+        <span data-i18n="pressNote">Listening — press a shortcut (Esc to stop). Browser-reserved combos such as Ctrl/Cmd + W, T or N can't be captured.</span>
       </p>
-      <p class="vh" id="search-help">Type a command name, a task or a key combination. Press slash to focus, Escape to clear.</p>
+      <p class="vh" id="search-help" data-i18n="searchHelp">Type a command name, a task or a key combination. Press slash to focus, Escape to clear.</p>
     </div>
   </div>
 
   <main class="wrap" id="main">
-    <section class="toolbar glass" aria-label="Filters and view options">
+    <section class="toolbar glass" data-i18n-attr="aria-label:filtersLabel">
       <div class="toolbar-top">
         <p class="count" id="count" role="status" aria-live="polite" aria-atomic="true"></p>
         <div class="toolbar-actions">
-          <div class="seg" role="group" aria-label="Group results by">
-            <button type="button" data-group="tier" aria-pressed="true">By tier</button>
-            <button type="button" data-group="category" aria-pressed="false">By category</button>
+          <div class="seg" role="group" data-i18n-attr="aria-label:groupBy">
+            <button type="button" data-group="tier" aria-pressed="true" data-i18n="byTier">By tier</button>
+            <button type="button" data-group="category" aria-pressed="false" data-i18n="byCategory">By category</button>
           </div>
           <button type="button" class="gem-btn" id="gem-btn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6z"/></svg>
-            Random hidden gem
+            <span data-i18n="gem">Random hidden gem</span>
           </button>
         </div>
       </div>
-      <div class="filters">
+
+      <div class="filters" id="filters">
         <div class="chip-row" role="group" aria-labelledby="lbl-tier">
-          <span class="chip-label" id="lbl-tier">Tier</span>
+          <span class="chip-label" id="lbl-tier" data-i18n="tier">Tier</span>
           <div class="chips" id="chips-tier"></div>
         </div>
-        <div class="chip-row" role="group" aria-labelledby="lbl-cat">
-          <span class="chip-label" id="lbl-cat">Category</span>
-          <div class="chips" id="chips-cat"></div>
+
+        <div class="cat-block" role="group" aria-labelledby="lbl-cat">
+          <div class="cat-block-head">
+            <span class="chip-label" id="lbl-cat" data-i18n="category">Category</span>
+          </div>
+          <div class="cat-groups" id="cat-groups"></div>
         </div>
+
         <div class="chip-row" role="group" aria-labelledby="lbl-ctx">
-          <span class="chip-label" id="lbl-ctx">Panel</span>
-          <div class="chips" id="chips-ctx"></div>
+          <span class="chip-label" id="lbl-ctx" data-i18n="panel">Panel</span>
+          <div class="chips chips-ctx" id="chips-ctx"></div>
         </div>
       </div>
-      <button type="button" class="link-btn" id="clear-filters" hidden>Clear all filters</button>
+      <button type="button" class="link-btn" id="clear-filters" hidden data-i18n="clearFilters">Clear all filters</button>
     </section>
 
     <div id="results" tabindex="-1"></div>
@@ -93,8 +109,9 @@
 
   <footer class="site-footer wrap">
     <div class="footer-card glass">
-      <p><strong>Not affiliated with Adobe.</strong> Adobe and Premiere are trademarks of Adobe Inc. This page lists Premiere's <em>default</em> shortcuts on a <strong>US English keyboard layout</strong>; other layouts and custom keyboard sets may differ.</p>
-      <p>“—” means Adobe documents no default for that platform. Click, Drag, Double-click and Scroll entries are mouse-plus-modifier techniques Adobe documents alongside the keys. Where Adobe's own pages disagree, the entry says so and follows the <a href="https://helpx.adobe.com/premiere/desktop/get-started/keyboard-shortcuts/default-keyboard-shortcuts.html" target="_blank" rel="noopener">default keyboard shortcuts table</a>.</p>
+      <p data-i18n-html="footer1Html"></p>
+      <p id="footer2"></p>
+      <p id="names-note"></p>
       <details class="sources">
         <summary id="sources-summary">Sources</summary>
         <ul id="sources-list"></ul>
@@ -108,9 +125,9 @@
   <dialog class="gem-dialog glass" id="gem-dialog" aria-labelledby="gem-title">
     <div class="gem-inner" id="gem-body"></div>
     <div class="gem-actions">
-      <button type="button" class="btn" id="gem-another">Another gem</button>
-      <button type="button" class="btn" id="gem-show">Show in list</button>
-      <button type="button" class="btn btn-ghost" id="gem-close">Close</button>
+      <button type="button" class="btn" id="gem-another" data-i18n="another">Another gem</button>
+      <button type="button" class="btn" id="gem-show" data-i18n="showInList">Show in list</button>
+      <button type="button" class="btn btn-ghost" id="gem-close" data-i18n="close">Close</button>
     </div>
   </dialog>
 

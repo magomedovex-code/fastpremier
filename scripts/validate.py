@@ -32,6 +32,36 @@ def load():
     return json.loads(m.group(1))
 
 
+def check_translations(entries):
+    """Every language file must translate every description, and (where Adobe publishes a
+    translated table) every command name; all languages must carry the same UI strings."""
+    errors, ui_sets = [], {}
+    ids = [e["id"] for e in entries]
+    files = sorted((ROOT / "data" / "i18n").glob("*.js"))
+    print(f"Translations: {len(files)} language files")
+    for f in files:
+        m = re.search(r"window\.PREMIERE_I18N\[\"(\w+)\"\]\s*=\s*(\{.*\});\s*$", f.read_text(encoding="utf-8"), re.S)
+        if not m:
+            errors.append(f"{f.name}: could not parse")
+            continue
+        lang, pack = m.group(1), json.loads(m.group(2))
+        tr = pack.get("entries", {})
+        no_desc = [i for i in ids if not str(tr.get(i, {}).get("d") or "").strip()]
+        no_name = [i for i in ids if pack.get("officialSource") and not str(tr.get(i, {}).get("a") or "").strip()]
+        ui_sets[lang] = set(pack.get("ui", {}))
+        errors += [f"{lang}: missing description for {i}" for i in no_desc]
+        errors += [f"{lang}: missing command name for {i}" for i in no_name]
+        names = "official Adobe names" if pack.get("officialSource") else "English command names"
+        print(f"  {lang} {pack.get('name', ''):<10} {len(ids) - len(no_desc)}/{len(ids)} descriptions, {names}, "
+              f"{len(pack.get('ui', {}))} UI strings")
+    if ui_sets:
+        union = set().union(*ui_sets.values())
+        for lang, keys in ui_sets.items():
+            if union - keys:
+                errors.append(f"{lang}: missing UI strings {sorted(union - keys)}")
+    return errors
+
+
 def valid_key(k):
     return k in MODS or k in NAMED or k in POINTER or len(k) == 1 or re.fullmatch(r"F\d{1,2}", k)
 
@@ -98,6 +128,8 @@ def main():
     print(f"Entries carrying a source note: {len(notes)}")
     for e in notes:
         print(f"  {e['id']}: {e['note']}")
+    print()
+    errors += check_translations(entries)
     print()
     if errors:
         print(f"FAILED — {len(errors)} problem(s):")

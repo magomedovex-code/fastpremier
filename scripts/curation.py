@@ -83,6 +83,24 @@ def url(slug):
 
 MAIN = "default-keyboard-shortcuts"
 
+
+def localized_url(locale):
+    return f"https://helpx.adobe.com/{locale}/premiere/desktop/" + PAGES[MAIN]
+
+
+# Site languages besides English. `adobe` is the helpx locale whose translated shortcut table
+# supplies official command names (matched to the English table by row position). Adobe's
+# Turkish (tr) and Arabic (sa_ar, ae_ar, mena_ar) pages keep the table in English, so those
+# languages keep English command names; descriptions and UI text come from scripts/i18n/<lang>.json.
+LANGUAGES = {
+    "ru": {"name": "Русский", "dir": "ltr", "adobe": "ru"},
+    "de": {"name": "Deutsch", "dir": "ltr", "adobe": "de"},
+    "es": {"name": "Español", "dir": "ltr", "adobe": "es"},
+    "fr": {"name": "Français", "dir": "ltr", "adobe": "fr"},
+    "tr": {"name": "Türkçe", "dir": "ltr", "adobe": None},
+    "ar": {"name": "العربية", "dir": "rtl", "adobe": None},
+}
+
 # Display order for categories. Parsed headings keep Adobe's wording.
 CATEGORY_ORDER = [
     "Playback", "Tools panel",
@@ -94,6 +112,26 @@ CATEGORY_ORDER = [
     "Multi-Camera", "Keyframes & effects", "Masks", "Color mode", "Captions",
     "Workspace", "Startup",
 ]
+
+# Category tiles are grouped; each tile shows the short name (the group label says "menu"/"panel").
+CATEGORY_GROUPS = {
+    "menus": ["File menu", "Edit menu", "Clip menu", "Sequence menu", "Markers menu",
+              "Graphics and Titles menu", "Window menu"],
+    "panels": ["Timeline panel", "Project panel", "Program Monitor panel", "Effect Controls panel",
+               "Effects panel", "Audio Track Mixer panel", "History panel", "Media Browser panel", "Metadata panel"],
+    "techniques": ["Playback", "Tools panel", "Multi-Camera", "Keyframes & effects", "Masks", "Color mode",
+                   "Captions", "Workspace", "Startup"],
+}
+CATEGORY_SHORT = {
+    "File menu": "File", "Edit menu": "Edit", "Clip menu": "Clip", "Sequence menu": "Sequence",
+    "Markers menu": "Markers", "Graphics and Titles menu": "Graphics & Titles", "Window menu": "Window",
+    "Timeline panel": "Timeline", "Project panel": "Project", "Program Monitor panel": "Program Monitor",
+    "Effect Controls panel": "Effect Controls", "Effects panel": "Effects", "Audio Track Mixer panel": "Audio Track Mixer",
+    "History panel": "History", "Media Browser panel": "Media Browser", "Metadata panel": "Metadata",
+    "Playback": "Playback", "Tools panel": "Tools", "Multi-Camera": "Multi-Camera",
+    "Keyframes & effects": "Keyframes & effects", "Masks": "Masks", "Color mode": "Color mode",
+    "Captions": "Captions", "Workspace": "Workspace", "Startup": "Startup",
+}
 
 # Short intro shown on each category section when grouping by category.
 CATEGORY_INTROS = {

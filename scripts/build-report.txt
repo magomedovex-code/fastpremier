@@ -54,6 +54,10 @@ Premiere shortcut build — 2026-09-22
   cached       https://helpx.adobe.com/premiere/desktop/get-started/tour-the-workspace/customize-panels.html
   cached       https://helpx.adobe.com/premiere/desktop/organize-media/apply-labeling/add-a-marker-to-a-clip.html
   cached       https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/snap-clips.html
+  cached       https://helpx.adobe.com/ru/premiere/desktop/get-started/keyboard-shortcuts/default-keyboard-shortcuts.html
+  cached       https://helpx.adobe.com/de/premiere/desktop/get-started/keyboard-shortcuts/default-keyboard-shortcuts.html
+  cached       https://helpx.adobe.com/es/premiere/desktop/get-started/keyboard-shortcuts/default-keyboard-shortcuts.html
+  cached       https://helpx.adobe.com/fr/premiere/desktop/get-started/keyboard-shortcuts/default-keyboard-shortcuts.html
 
 2. Headings and rows on the default-shortcuts page
   File menu                     14 rows
@@ -87,7 +91,20 @@ Premiere shortcut build — 2026-09-22
 5. premiere-shortcuts.txt
   not present — skipped
 
-6. Result
+6. Translations
+  ru: 'Копия' replaced by 'Копировать' for copy
+  ru: 'Очистить при наведении' replaced by 'Просмотр при наведении' for hover-scrub
+  ru: 175 official Adobe command names, 252/252 descriptions
+  de: 'Schwellenwertabgrenzung' replaced by 'Ausschneiden' for cut
+  de: 175 official Adobe command names, 252/252 descriptions
+  es: 'Revertir Hacer Coicider Fotograma' replaced by 'Revertir Hacer coincidir fotograma' for reverse-match-frame
+  es: 'Borrar por pase' replaced by 'Previsualización al pasar el cursor' for hover-scrub
+  es: 175 official Adobe command names, 252/252 descriptions
+  fr: 175 official Adobe command names, 252/252 descriptions
+  tr: command names kept in English (Adobe's page for this language is not translated), 252/252 descriptions
+  ar: command names kept in English (Adobe's page for this language is not translated), 252/252 descriptions
+
+7. Result
   wrote data\shortcuts.js with 252 entries
 
 Warnings (0)

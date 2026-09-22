@@ -57,10 +57,9 @@ def log(msg=""):
 
 
 # --------------------------------------------------------------------------- fetch
-def fetch(slug):
+def fetch(name, url):
     """Download one page with curl (Adobe's CDN rejects urllib's default client)."""
-    dest = RAW / f"{slug}.html"
-    url = C.url(slug)
+    dest = RAW / f"{name}.html"
     tmp = dest.with_suffix(".tmp")
     try:
         res = subprocess.run(
@@ -172,20 +171,37 @@ def parse_combo(text, platform):
     return order_combo(keys, platform)
 
 
-def parse_main(path):
+def subgroup_row(data_rows, ri):
+    """Index of the sub-heading row ("Workspaces", "New Layer") that row ri sits under, if any."""
+    for j in range(ri - 1, -1, -1):
+        if len(data_rows[j]) == 1:
+            return j if data_rows[j][0] else None
+    return None
+
+
+def shortcut_tables(path):
+    """[(heading, rows)] for every table whose header row reads '<Commands> | Windows | macOS'.
+
+    Localized pages translate 'Commands' but keep 'Windows' and 'macOS', so only those are checked.
+    """
     parser = TableParser()
     parser.feed(path.read_text(encoding="utf-8"))
-    rows, problems, headings = [], [], []
+    tables = []
     for sec in parser.sections:
-        heading = sec["heading"]
         data_rows = [r for r in sec["rows"] if r]
-        if not data_rows or [c.lower() for c in data_rows[0][:3]] != ["commands", "windows", "macos"]:
-            continue  # not a shortcut table (e.g. page chrome)
+        if data_rows and len(data_rows[0]) == 3 and [c.lower() for c in data_rows[0][1:]] == ["windows", "macos"]:
+            tables.append((sec["heading"], data_rows[1:]))
+    return tables
+
+
+def parse_main(path):
+    rows, problems, headings = [], [], []
+    for ti, (heading, data_rows) in enumerate(shortcut_tables(path)):
         headings.append(heading)
         menu = heading[:-5] if heading.endswith(" menu") else None
         subgroup = None
         count = 0
-        for r in data_rows[1:]:
+        for ri, r in enumerate(data_rows):
             if len(r) == 1:
                 subgroup = r[0] or None  # a sub-heading row ("Workspaces") or a blank separator
                 continue
@@ -194,6 +210,7 @@ def parse_main(path):
                 continue
             action = clean_action(r[0])
             entry = {"action": action, "category": heading, "menu": menu, "subgroup": subgroup,
+                     "subgroupPos": (ti, subgroup_row(data_rows, ri)), "pos": (ti, ri),
                      "rawWin": r[1], "rawMac": r[2]}
             try:
                 entry["win"] = [parse_combo(r[1], "win")] if r[1] else []
@@ -311,6 +328,111 @@ def parse_txt_paste(path):
     return platform, entries
 
 
+# --------------------------------------------------------------------------- translations
+I18N_SRC = ROOT / "scripts" / "i18n"
+I18N_OUT = ROOT / "data" / "i18n"
+
+
+def localized_name(lang):
+    return f"{C.MAIN}.{lang}"
+
+
+def localized_cells(lang, en_path):
+    """Official command names from Adobe's translated shortcut page, keyed by (table, row) position.
+
+    Adobe's translated pages have exactly the same tables and rows as the English one, so a row's
+    position identifies it. Tables whose row count differs are skipped rather than guessed.
+    """
+    path = RAW / f"{localized_name(lang)}.html"
+    if not path.exists():
+        return None, [f"NO PAGE  {lang}: {path.name} missing — English command names used"]
+    en_tables, loc_tables = shortcut_tables(en_path), shortcut_tables(path)
+    problems = []
+    if len(en_tables) != len(loc_tables):
+        return None, [f"TABLES DIFFER  {lang}: {len(loc_tables)} tables vs {len(en_tables)} in English — English names used"]
+    cells = {}
+    for ti, ((eh, erows), (lh, lrows)) in enumerate(zip(en_tables, loc_tables)):
+        if len(erows) != len(lrows):
+            problems.append(f"ROWS DIFFER  {lang}: '{lh}' has {len(lrows)} rows vs {len(erows)} in '{eh}' — English names kept there")
+            continue
+        for ri, (er, lr) in enumerate(zip(erows, lrows)):
+            if len(er) != len(lr):
+                problems.append(f"ROW SHAPE  {lang}: '{eh}' row {ri}: {er} vs {lr}")
+                continue
+            if lr[0]:
+                cells[(ti, ri)] = clean_action(lr[0])
+    return cells, problems
+
+
+def build_i18n(output, table_rows, warnings):
+    I18N_OUT.mkdir(parents=True, exist_ok=True)
+    en_path = RAW / f"{C.MAIN}.html"
+    for lang, cfg in C.LANGUAGES.items():
+        src = I18N_SRC / f"{lang}.json"
+        if not src.exists():
+            warnings.append(f"NO TRANSLATION FILE  {src.relative_to(ROOT)}")
+            continue
+        tr = json.loads(src.read_text(encoding="utf-8"))
+        cells, problems = localized_cells(lang, en_path) if cfg["adobe"] else (None, [])
+        warnings.extend(problems)
+        cats = tr.get("categories", {})
+        entries, official, missing, missing_names = {}, 0, [], []
+        names = tr.get("names", {}) if cfg["adobe"] else {}
+        for o in output:
+            eid = o["id"]
+            rec = {}
+            row = table_rows.get(eid)
+            if cells is not None and row and row["pos"] in cells:
+                rec["a"] = cells[row["pos"]]
+                official += 1
+                if eid in names:
+                    # scripts/i18n/<lang>.json corrects an obvious mistranslation on Adobe's page
+                    log(f"  {lang}: '{rec['a']}' replaced by '{names[eid]}' for {eid}")
+                    rec["a"] = names[eid]
+                if o["menuPath"]:
+                    menu = cats.get(o["category"], [None])[0]
+                    sub = cells.get(row["subgroupPos"]) if row["subgroupPos"][1] is not None else None
+                    if menu:
+                        rec["p"] = " › ".join([menu] + ([sub] if sub else []) + [rec["a"]])
+            elif eid in names:
+                rec["a"] = names[eid]
+            elif cfg["adobe"]:
+                missing_names.append(eid)
+            desc = tr.get("desc", {}).get(eid)
+            if desc:
+                rec["d"] = desc
+            else:
+                missing.append(eid)
+            if o.get("note") and tr.get("notes", {}).get(eid):
+                rec["n"] = tr["notes"][eid]
+            entries[eid] = rec
+        if missing:
+            warnings.append(f"UNTRANSLATED  {lang}: {len(missing)} descriptions fall back to English: {', '.join(missing[:12])}"
+                            + (" …" if len(missing) > 12 else ""))
+        if missing_names:
+            warnings.append(f"UNTRANSLATED  {lang}: {len(missing_names)} names fall back to English: {', '.join(missing_names[:12])}"
+                            + (" …" if len(missing_names) > 12 else ""))
+        extra_ids = sorted(set(tr.get("desc", {})) - {o["id"] for o in output})
+        if extra_ids:
+            warnings.append(f"UNKNOWN IDS  {lang}: {', '.join(extra_ids)}")
+        payload = {
+            "lang": lang, "name": cfg["name"], "dir": cfg["dir"],
+            "officialSource": C.localized_url(cfg["adobe"]) if cfg["adobe"] else None,
+            "ui": tr.get("ui", {}), "tiers": tr.get("tiers", {}), "categories": cats,
+            "contexts": tr.get("contexts", {}), "keys": tr.get("keys", {}), "entries": entries,
+        }
+        (I18N_OUT / f"{lang}.js").write_text(
+            "// Generated by scripts/build_shortcuts.py from scripts/i18n/" + f"{lang}.json"
+            + (f" and Adobe's {cfg['adobe']} shortcut page" if cfg["adobe"] else "") + ".\n"
+            "window.PREMIERE_I18N = window.PREMIERE_I18N || {};\n"
+            f"window.PREMIERE_I18N[{json.dumps(lang)}] = {json.dumps(payload, ensure_ascii=False, indent=1)};\n",
+            encoding="utf-8",
+        )
+        names_note = (f"{official} official Adobe command names" if cfg["adobe"]
+                      else "command names kept in English (Adobe's page for this language is not translated)")
+        log(f"  {lang}: {names_note}, {len(output) - len(missing)}/{len(output)} descriptions")
+
+
 # --------------------------------------------------------------------------- build
 def build(offline):
     if hasattr(sys.stdout, "reconfigure"):
@@ -319,11 +441,14 @@ def build(offline):
     log(f"Premiere shortcut build — {date.today().isoformat()}")
     log("")
     log("1. Pages" + (" (offline: cached copies)" if offline else ""))
-    for s in C.PAGES:
-        status = "cached" if offline else fetch(s)
-        if not (RAW / f"{s}.html").exists():
+    pages = [(s, C.url(s)) for s in C.PAGES]
+    pages += [(localized_name(lang), C.localized_url(cfg["adobe"]))
+              for lang, cfg in C.LANGUAGES.items() if cfg["adobe"]]
+    for name, url in pages:
+        status = "cached" if offline else fetch(name, url)
+        if not (RAW / f"{name}.html").exists():
             status = "MISSING"
-        log(f"  {status:<12} {C.url(s)}")
+        log(f"  {status:<12} {url}")
     main_path = RAW / f"{C.MAIN}.html"
     if not main_path.exists():
         sys.exit("The main shortcuts page is missing. Save it as scripts/raw/default-keyboard-shortcuts.html")
@@ -341,8 +466,10 @@ def build(offline):
 
     warnings, output = [], []
     main_url = C.url(C.MAIN)
+    table_rows = {}  # id -> parsed row, so translations can be matched to the same table cell
     for e in entries:
         eid = e["id"]
+        table_rows[eid] = e
         note = None
         more = []
         if e.get("parseError"):
@@ -460,6 +587,10 @@ def build(offline):
         "categoryOrder": [c for c in C.CATEGORY_ORDER if any(o["category"] == c for o in output)]
                          + sorted({o["category"] for o in output} - set(C.CATEGORY_ORDER)),
         "categoryIntros": C.CATEGORY_INTROS,
+        "categoryShort": C.CATEGORY_SHORT,
+        "categoryGroups": C.CATEGORY_GROUPS,
+        "languages": {"en": {"name": "English", "dir": "ltr"}}
+                     | {lang: {"name": cfg["name"], "dir": cfg["dir"]} for lang, cfg in C.LANGUAGES.items()},
         "headingsParsed": headings,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -472,7 +603,11 @@ def build(offline):
     )
 
     log("")
-    log("6. Result")
+    log("6. Translations")
+    build_i18n(output, table_rows, warnings)
+
+    log("")
+    log("7. Result")
     log(f"  wrote {OUT.relative_to(ROOT)} with {len(output)} entries")
     log("")
     log(f"Warnings ({len(warnings)})")
